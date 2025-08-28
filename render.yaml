@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: farazgold-bot
+    env: python
+    plan: free
+    region: oregon
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --preload --workers=1 --threads=4 --timeout=120
+    autoDeploy: true
+    envVars:
+      - key: WEBHOOK_MODE
+        value: "true"
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: WEBHOOK_SECRET
+        generateValue: true
